@@ -13,7 +13,9 @@ class EmployeeListAdapter internal constructor(context: Context) : androidx.recy
     private var employees = emptyList<Employee>() // Cached copy of words
 
     inner class WordViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
-        val wordItemView: TextView = itemView.findViewById(R.id.textView)
+        val firstNameItemView: TextView = itemView.findViewById(R.id.textView)
+        val lastNameItemView: TextView = itemView.findViewById(R.id.textView2)
+        val roleNameItemView: TextView = itemView.findViewById(R.id.textView3)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
@@ -23,7 +25,9 @@ class EmployeeListAdapter internal constructor(context: Context) : androidx.recy
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = employees[position]
-        holder.wordItemView.text = current.firstName
+        holder.firstNameItemView.text = current.firstName
+        holder.lastNameItemView.text = current.lastName
+        holder.roleNameItemView.text = current.role
     }
 
     internal fun setWords(employees: List<Employee>) {

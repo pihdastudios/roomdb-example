@@ -18,14 +18,16 @@ class NewEmployeeActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-            val inName = findViewById<EditText>(R.id.in_first_name).text.toString()
+            val inFirstName = findViewById<EditText>(R.id.in_first_name).text.toString()
+            val inLastName = findViewById<EditText>(R.id.in_last_name).text.toString()
+            val inRole = findViewById<EditText>(R.id.in_role).text.toString()
 
-            if (TextUtils.isEmpty(inName)) {
+            if (TextUtils.isEmpty(inFirstName) or TextUtils.isEmpty(inLastName) or TextUtils.isEmpty(inRole)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                replyIntent.putExtra(EXTRA_REPLY, inName)
-                replyIntent.putExtra(EXTRA_REPLY, inName)
-                replyIntent.putExtra(EXTRA_REPLY, inName)
+                replyIntent.putExtra(FIRST_NAME, inFirstName)
+                replyIntent.putExtra(LAST_NAME, inLastName)
+                replyIntent.putExtra(ROLE, inRole)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -33,7 +35,9 @@ class NewEmployeeActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "com.egg.roombbdd.REPLY"
+        const val FIRST_NAME = "com.egg.roomdb.FIRST_NAME"
+        const val LAST_NAME = "com.egg.roomdb.LAST_NAME"
+        const val ROLE = "com.egg.roomdb.ROLE"
     }
 }
 

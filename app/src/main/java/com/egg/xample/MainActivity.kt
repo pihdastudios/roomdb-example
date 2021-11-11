@@ -115,7 +115,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                                 } else {
 
 
-
                                     val word = Employee(position, regionName, "test", "test")
 
 
@@ -243,13 +242,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             if (it.resultCode == Activity.RESULT_OK) {
 
 
+                var firstName = it.data?.getStringExtra(NewEmployeeActivity.FIRST_NAME)
+                var lastName = it.data?.getStringExtra(NewEmployeeActivity.LAST_NAME)
+                var role = it.data?.getStringExtra(NewEmployeeActivity.ROLE)
+                val employee = Employee(0, firstName!!, lastName!!, role!!)
 
-                val word = it.data?.getStringExtra(NewEmployeeActivity.EXTRA_REPLY)?.let { Employee(0, it, it, it) }
 
 
-
-                if (word != null) {
-                    employeeViewModel.insert(word)
+                if (employee != null) {
+                    employeeViewModel.insert(employee)
                 }
             } else {
                 Toast.makeText(
