@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 31
+    defaultConfig {
+        applicationId "com.egg.xample"
+        minSdkVersion 23
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    buildToolsVersion '30.0.3'
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+//    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+
+    // ROOM COMPONETS
+    implementation 'androidx.room:room-runtime:2.4.0-beta01'
+    kapt 'androidx.room:room-compiler:2.4.0-beta01'
+    implementation 'androidx.room:room-ktx:2.4.0-beta01'
+    androidTestImplementation 'androidx.room:room-testing:2.3.0'
+
+    // LIFECYCLE COMPONENTS
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+
+    // COROUTINES
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
+
+}
