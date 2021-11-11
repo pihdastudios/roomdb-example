@@ -5,60 +5,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.egg.xample.NewWordActivity">
+    tools:context="com.egg.xample.NewEmployeeActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:contentDescription="@string/descripcion"
-        android:src="@drawable/ic_text"
-        app:layout_constraintBottom_toTopOf="@+id/edit_word"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_word"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_centerInParent="true"
-        android:layout_margin="16dp"
-        android:textColorHint="@color/colorPrimary"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:boxStrokeWidth="2dp"
-        app:errorEnabled="true"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
-        <EditText
-            android:id="@+id/in_name"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:contentDescription="@string/descripcion"
+            android:src="@drawable/ic_text" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/palabra"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:maxLength="10"
-            android:maxLines="0"
-            android:textColor="@color/colorPrimary"
-            android:theme="@style/Theme.MaterialComponents"
-            tools:ignore="Autofill" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="16dp"
+            android:textColorHint="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeWidth="2dp"
+            app:errorEnabled="true">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/in_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First Name"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:maxLength="10"
+                android:maxLines="0"
+                android:textColor="@color/colorPrimary"
+                android:theme="@style/Theme.MaterialComponents"
+                tools:ignore="Autofill" />
 
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/button_save"
-        android:textColor="@color/buttonLabel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="16dp"
+            android:textColorHint="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeWidth="2dp"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/in_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:maxLength="10"
+                android:maxLines="0"
+                android:textColor="@color/colorPrimary"
+                android:theme="@style/Theme.MaterialComponents"
+                tools:ignore="Autofill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="16dp"
+            android:textColorHint="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeWidth="2dp"
+            app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/in_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Role"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:maxLength="10"
+                android:maxLines="0"
+                android:textColor="@color/colorPrimary"
+                android:theme="@style/Theme.MaterialComponents"
+                tools:ignore="Autofill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Save"
+            android:textColor="@color/buttonLabel" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

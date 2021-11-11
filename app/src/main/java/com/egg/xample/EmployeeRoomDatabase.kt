@@ -9,21 +9,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Word::class], version = 2, exportSchema = false)
-abstract class WordRoomDatabase : RoomDatabase() {
+@Database(entities = [Employee::class], version = 2, exportSchema = false)
+abstract class EmployeeRoomDatabase : RoomDatabase() {
 
-    abstract fun wordDao(): WordDao
+    abstract fun employeeDao(): EmployeeDao
 
     companion object {
         @Volatile
-        private var INSTANCE: WordRoomDatabase? = null
+        private var INSTANCE: EmployeeRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): WordRoomDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): EmployeeRoomDatabase {
 
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    WordRoomDatabase::class.java,
+                    EmployeeRoomDatabase::class.java,
                     "word_database"
                 )
 

@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import xample.R
 
-class WordListAdapter internal constructor(context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
+class EmployeeListAdapter internal constructor(context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<EmployeeListAdapter.WordViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var words = emptyList<Word>() // Cached copy of words
+    private var employees = emptyList<Employee>() // Cached copy of words
 
     inner class WordViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val wordItemView: TextView = itemView.findViewById(R.id.textView)
@@ -22,19 +22,19 @@ class WordListAdapter internal constructor(context: Context) : androidx.recycler
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        val current = words[position]
-        holder.wordItemView.text = current.word
+        val current = employees[position]
+        holder.wordItemView.text = current.firstName
     }
 
-    internal fun setWords(words: List<Word>) {
-        this.words = words
+    internal fun setWords(employees: List<Employee>) {
+        this.employees = employees
         notifyDataSetChanged()
     }
 
-    fun getWordAtPosition(position: Int): Word {
-        return words[position]
+    fun getWordAtPosition(position: Int): Employee {
+        return employees[position]
     }
 
 
-    override fun getItemCount() = words.size
+    override fun getItemCount() = employees.size
 }

@@ -9,24 +9,24 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class WordViewModel(application: Application) : AndroidViewModel(application) {
+class EmployeeViewModel(application: Application) : AndroidViewModel(application) {
 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository: WordRepository
-    val allWords: LiveData<List<Word>>
+    private val repository: EmployeeRepository
+    val allWords: LiveData<List<Employee>>
 
     init {
-        val wordsDao = WordRoomDatabase.getDatabase(application, scope).wordDao()
-        repository = WordRepository(wordsDao)
+        val wordsDao = EmployeeRoomDatabase.getDatabase(application, scope).employeeDao()
+        repository = EmployeeRepository(wordsDao)
         allWords = repository.allWords
     }
 
-    fun insert(word: Word) = scope.launch(Dispatchers.IO) {
-        repository.insert(word)
+    fun insert(employee: Employee) = scope.launch(Dispatchers.IO) {
+        repository.insert(employee)
     }
 
     override fun onCleared() {
@@ -38,12 +38,12 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
         repository.deleteAll()
     }
 
-    suspend fun deleteWord(word: Word) {
-        repository.deleteWord(word)
+    suspend fun deleteWord(employee: Employee) {
+        repository.deleteWord(employee)
     }
 
-    suspend fun updateWord(word: Word) {
-        repository.update(word)
+    suspend fun updateWord(employee: Employee) {
+        repository.update(employee)
     }
 
 }

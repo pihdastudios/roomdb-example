@@ -10,7 +10,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import xample.R
 
-class NewWordActivity : AppCompatActivity() {
+class NewEmployeeActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,10 +18,13 @@ class NewWordActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-            val inName = findViewById<EditText>(R.id.in_name).text.toString()
+            val inName = findViewById<EditText>(R.id.in_first_name).text.toString()
+
             if (TextUtils.isEmpty(inName)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
+                replyIntent.putExtra(EXTRA_REPLY, inName)
+                replyIntent.putExtra(EXTRA_REPLY, inName)
                 replyIntent.putExtra(EXTRA_REPLY, inName)
                 setResult(Activity.RESULT_OK, replyIntent)
             }

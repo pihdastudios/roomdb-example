@@ -26,7 +26,7 @@ import xample.R
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
-    private lateinit var wordViewModel: WordViewModel
+    private lateinit var employeeViewModel: EmployeeViewModel
 
     private var job: Job = Job()
 
@@ -47,19 +47,19 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         val recyclerView =
             findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerview)
-        val adapter = WordListAdapter(this)
+        val adapter = EmployeeListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
 
-        wordViewModel = ViewModelProvider(this).get(WordViewModel::class.java)
+        employeeViewModel = ViewModelProvider(this).get(EmployeeViewModel::class.java)
 
-        wordViewModel.allWords.observe(this) { words ->
+        employeeViewModel.allWords.observe(this) { words ->
             words?.let { adapter.setWords(it) }
         }
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, NewWordActivity::class.java)
+            val intent = Intent(this@MainActivity, NewEmployeeActivity::class.java)
             getResult.launch(intent)
 
         }
@@ -87,9 +87,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
                     if (direction == ItemTouchHelper.LEFT) {
                         launch {
-                            wordViewModel.deleteWord(myWord)
+                            employeeViewModel.deleteWord(myWord)
                         }
-                        wordViewModel.allWords
+                        employeeViewModel.allWords
                     } else {
 
                         val builder = AlertDialog.Builder(this@MainActivity)
@@ -113,11 +113,17 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else {
-                                    val word = Word(position, regionName)
+
+
+
+                                    val word = Employee(position, regionName, "test", "test")
+
+
+
                                     launch {
-                                        wordViewModel.updateWord(word)
+                                        employeeViewModel.updateWord(word)
                                     }
-                                    wordViewModel.allWords
+                                    employeeViewModel.allWords
                                 }
                             }
                             .setNegativeButton("Cancelar") { dialog, _ -> dialog.cancel() }
@@ -235,9 +241,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         ) {
 
             if (it.resultCode == Activity.RESULT_OK) {
-                val word = it.data?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let { Word(0, it) }
+
+
+
+                val word = it.data?.getStringExtra(NewEmployeeActivity.EXTRA_REPLY)?.let { Employee(0, it, it, it) }
+
+
+
                 if (word != null) {
-                    wordViewModel.insert(word)
+                    employeeViewModel.insert(word)
                 }
             } else {
                 Toast.makeText(
@@ -260,7 +272,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         when (item.itemId) {
             R.id.deleteall -> {
                 launch {
-                    wordViewModel.deleteAll()
+                    employeeViewModel.deleteAll()
                 }
                 return true
             }
