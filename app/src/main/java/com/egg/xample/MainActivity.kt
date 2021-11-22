@@ -1,10 +1,10 @@
 package com.egg.xample
 
-import android.app.Activity
-import android.app.AlertDialog
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
@@ -14,7 +14,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,6 +44,17 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Creating Notification Channel
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O){
+            val dbChannel = NotificationChannel("db_channel",
+                "DB Channel",
+                NotificationManager.IMPORTANCE_DEFAULT)
+            //Register Channel to system
+            val notifManager : NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notifManager.createNotificationChannel(dbChannel)
+        }
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -95,21 +109,21 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                         val builder = AlertDialog.Builder(this@MainActivity)
 
                         val userEdit = EditText(this@MainActivity)
-                        userEdit.hint = "Introduce un nombre"
+                        userEdit.hint = "Enter a new Name"
                         userEdit.gravity = Gravity.CENTER_HORIZONTAL
                         userEdit.ellipsize
 
-                        // CREAR EL DIALOGO
-                        builder.setTitle("Actualizar")
+
+                        builder.setTitle("Update")
                             .setView(userEdit)
-                            .setMessage("Edita tu palabra y actualizala dándole al botón de 'Guardar'\n")
-                            .setPositiveButton("Guardar") { _, _ ->
+                            .setMessage("Enter a new \n")
+                            .setPositiveButton("Save") { _, _ ->
                                 val regionName = userEdit.text.toString()
 
                                 if (regionName.isEmpty()) {
                                     Toast.makeText(
                                         this@MainActivity,
-                                        "El campo no puede estar vacío",
+                                        "The field cannot be empty",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else {
@@ -125,7 +139,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                                     employeeViewModel.allWords
                                 }
                             }
-                            .setNegativeButton("Cancelar") { dialog, _ -> dialog.cancel() }
+                            .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
 
                         // MOSTRAR
                         builder.show()
@@ -252,12 +266,27 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 if (employee != null) {
                     employeeViewModel.insert(employee)
                 }
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG
-                ).show()
+            }   else {
+                //Notification
+                    val intent = Intent(this,MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
+
+                val pendingIntent: PendingIntent = PendingIntent.getActivity(this,0,intent,0)
+
+
+                val mbuilder = NotificationCompat.Builder(this,"db_channel")
+                        .setSmallIcon(R.drawable.ic_notification)
+                        .setContentTitle("Employee Database")
+                        .setContentText("Failed to save Employee data")
+                        .setStyle(NotificationCompat.BigTextStyle()
+                            .bigText("Data Employee yang baru saja dimasukkan gagal untuk disimpan di database"))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true)
+
+                val managerCompat = NotificationManagerCompat.from(this)
+                    managerCompat.notify(1,mbuilder.build())
             }
 
         }

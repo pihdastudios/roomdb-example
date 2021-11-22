@@ -5,5 +5,5 @@
     <string name="button_save">Guardar</string>
     <string name="empty_not_saved">Palabra no guardada</string>
     <string name="palabra">Palabra</string>
-    <string name="descripcion">descripcion</string>
+    <string name="description">description</string>
 </resources>

@@ -23,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.egg.xample.NewEmployeeActivity" />
+        <activity
+            android:name="com.egg.xample.NewEmployeeActivity"
+            android:parentActivityName="com.egg.xample.MainActivity"/>
     </application>
 
 </manifest>
